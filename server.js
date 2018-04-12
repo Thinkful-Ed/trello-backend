@@ -236,8 +236,9 @@ app.post('/api/list/:id/card', (req, res) => {
     if (error) {
         return res.status(400).send('Bad request');
     }
-    list.cards.push(makeCard(card))
-    return res.json(card);
+    const card = makeCard(req.body.text);
+    list.cards.push(card);
+    return res.status(201).json(card);
 });
 
 
