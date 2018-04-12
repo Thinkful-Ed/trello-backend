@@ -13,7 +13,9 @@ Note that this is not meant to be a robust, full-fledged Trello app backend. Its
 1. Clone this repo
 2. `cd` into it
 3. Run `npm install`
-4. Run 
+4. Run `npm start`
+
+By default, this will run the server on port 8080. And it will expect clients coming from localhost:3000. If you want non-default settings, set environment variables for `CLIENT_ORIGIN` and `SERVER_PORT` before running `npm start`.
 
 ## More details on what it do
 
