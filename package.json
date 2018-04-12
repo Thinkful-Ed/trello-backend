@@ -1,8 +1,8 @@
 {
-  "name": "server",
+  "name": "trello-backend",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "Joe Turner <joe@oampo.co.uk>",
+  "author": "Benjamin White",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.2",
