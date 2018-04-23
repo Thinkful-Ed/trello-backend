@@ -1,0 +1,36 @@
+[
+    {
+      "name": "Example board 1",
+      "id": "1",
+      "lists": [
+        {
+          "title": "Example list 1",
+          "cards": [
+            {
+              "text": "Example card 1",
+              "id": "w"
+            },
+            {
+              "text": "Example card 2",
+              "id": "x"
+            }
+          ],
+          "id": "a"
+        },
+        {
+          "title": "Example list 2",
+          "cards": [
+            {
+              "text": "Example card 3",
+              "id": "y"
+            },
+            {
+              "text": "Example card 4",
+              "id": "z"
+            }
+          ],
+          "id": "b"
+        }
+      ]
+    }
+]

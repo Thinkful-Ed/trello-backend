@@ -10,5 +10,12 @@
     "express": "^4.15.3",
     "joi": "^13.1.2",
     "uuid": "^3.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.3"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "start-dev": "nodemon server.js"
   }
 }

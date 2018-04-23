@@ -7,6 +7,7 @@ const Joi = require('joi');
 const uuid = require('uuid');
 
 const { CLIENT_ORIGIN, SERVER_PORT } = require('./config');
+const boardsFixture = require('./boards');
 
 const app = express();
 
@@ -41,43 +42,32 @@ function makeCard(text) {
   };
 }
 
-function makeStarterBoard() {
-  const cards = [
-    makeCard('Example card 1'),
-    makeCard('Example card 2'),
-    makeCard('Example card 3'),
-    makeCard('Example card 4')
-  ];
 
-  const lists = [
-    makeList('Example list 1', cards.slice(0, 2)),
-    makeList('Example list 2', cards.slice(2, 4))
-  ];
-
-  return makeBoard('Example board 1', lists);
-}
-
-let BOARDS = [makeStarterBoard()];
+let BOARDS = boardsFixture;
 
 app.get('/api/board', (req, res) => res.json({ boards: BOARDS }));
 
-app.get('/api/board/:id', (req, res) => {
+app.get('/api/board/:id', (req, res, next) => {
   const board = BOARDS.find(item => item.id === req.params.id);
   if (!board) {
-    return res.status(404).send('Not found');
+    const err = new Error('Not Found');
+    err.status = 404;
+    return next(err);
   }
   return res.json(board);
 });
 
-app.post('/api/board', (req, res) => {
+app.post('/api/board', (req, res, next) => {
   const boardSchema = Joi.object().keys({
     name: Joi.string()
       .min(1)
       .required()
   });
-  const { error } = Joi.validate(req.body, boardSchema);
-  if (error) {
-    return res.status(400).send('Bad request');
+  const { error: validationError } = Joi.validate(req.body, boardSchema);
+  if (validationError) {
+    const err = new Error('Bad request');
+    err.status = 400;
+    return next(err);
   }
   const board = makeBoard(req.body.name);
   BOARDS.push(board);
@@ -89,34 +79,39 @@ app.delete('/api/board/:id', (req, res) => {
   return res.status(204).send();
 });
 
-app.put('/api/board/:id', (req, res) => {
+app.put('/api/board/:id', (req, res, next) => {
   const boardSchema = Joi.object().keys({
     name: Joi.string().required(),
     id: Joi.string().required()
   });
-  const { error } = Joi.validate(req.body, boardSchema);
-  if (error) {
-    return res.status(400).send('Bad request');
+  const { error: validationError } = Joi.validate(req.body, boardSchema);
+  if (validationError) {
+    const err = new Error('Bad request');
+    err.status = 400;
+    return next(err);
   }
   if (req.params.id !== req.body.id) {
-    const message = `Request path id (${req.params.id}) and request body id (${
-      req.body.id
-    }) must match`;
-    return res.status(400).send(message);
+    const err = new Error(`Request path id (${req.params.id}) and request body id (${
+      req.body.id}) must match`);
+    err.status = 400;
+    return next(err);
   }
   const board = BOARDS.find(item => item.id === req.params.id);
   if (!board) {
-    const message = 'Board not found';
-    return res.status(404).send(message);
+    const err = new Error('Board not found');
+    err.status = 404;
+    return next(err);  
   }
-  board.name = req.params.name;
+  board.name = req.body.name;
   return res.status(204).send();
 });
 
-app.get('/api/board/:id/list', (req, res) => {
+app.get('/api/board/:id/list', (req, res, next) => {
   const board = BOARDS.find(item => item.id === req.params.id);
   if (!board) {
-    return res.status(404).send('Not found');
+    const err = new Error('Not found');
+    err.status = 404;
+    return next(err);  
   }
   return res.json({ lists: board.lists });
 });
@@ -132,25 +127,31 @@ function findList(listId, boards = BOARDS) {
   return list;
 }
 
-app.get('/api/list/:id', (req, res) => {
+app.get('/api/list/:id', (req, res, next) => {
   const list = findList(req.params.id);
   if (!list) {
-    return res.status(404).send('List not found');
+    const err = new Error('List not found');
+    err.status = 404;
+    return next(err);  
   }
   return res.json(list);
 });
 
-app.post('/api/board/:boardId/list', (req, res) => {
+app.post('/api/board/:boardId/list', (req, res, next) => {
   const board = BOARDS.find(item => item.id === req.params.boardId);
   if (!board) {
-    return res.status(404).send('Board not found');
+    const err = new Error('Board not found');
+    err.status = 404;
+    return next(err);  
   }
   const listSchema = Joi.object().keys({
     title: Joi.string().required()
   });
-  const { error } = Joi.validate(req.body, listSchema);
-  if (error) {
-    return res.status(400).send('Bad request');
+  const { error: validationError } = Joi.validate(req.body, listSchema);
+  if (validationError) {
+    const err = new Error('Bad request');
+    err.status = 400;
+    return next(err);
   }
   const list = makeList(req.body.title);
   board.lists.push(list);
@@ -168,35 +169,43 @@ app.delete('/api/list/:id', (req, res) => {
   return res.status(204).send();
 });
 
-app.put('/api/list/:id', (req, res) => {
+app.put('/api/list/:id', (req, res, next) => {
   const list = findList(req.params.id);
   if (!list) {
-    return res.status(404).send('List not found');
+    const err = new Error('List not found');
+    err.status = 404;
+    return next(err);
   }
   const listSchema = Joi.object().keys({
     title: Joi.string().required(),
     id: Joi.string().required()
   });
-  const { error } = Joi.validate(req.body, listSchema);
-  if (error) {
-    return res.status(400).send('Bad request');
+  const { error: validationError } = Joi.validate(req.body, listSchema);
+  if (validationError) {
+    const err = new Error('Bad request');
+    err.status = 400;
+    return next(err);
   }
   if (req.params.id !== req.body.id) {
     const message = `Request path id (${req.params.id}) and request body id (${
       req.body.id
     }) must match`;
-    return res.status(400).send(message);
+    const err = new Error(message);
+    err.status = 400;
+    return next(err);
   }
-  list.name = req.params.id;
+  list.title = req.body.title;
   return res.status(204).send();
 });
 
-app.get('/api/list/:id/card', (req, res) => {
+app.get('/api/list/:id/card', (req, res, next) => {
   const list = findList(req.params.id);
   if (!list) {
-    return res.status(404).send('List not found');
+    const err = new Error('List not found');
+    err.status = 404;
+    next(err);
   }
-  return res.json({ cards: list.cards });
+  res.json({ cards: list.cards });
 });
 
 function getCard(cardId, boards = BOARDS) {
@@ -212,29 +221,35 @@ function getCard(cardId, boards = BOARDS) {
   return card;
 }
 
-app.get('/api/card/:id', (req, res) => {
+app.get('/api/card/:id', (req, res, next) => {
   const card = getCard(req.params.id);
   if (!card) {
-    return res.status(404).send('Card not found');
+    const err = new Error('Card not found');
+    err.status = 404;
+    next(err);
   }
-  return res.json(card);
+  res.json(card);
 });
 
-app.post('/api/list/:id/card', (req, res) => {
+app.post('/api/list/:id/card', (req, res, next) => {
   const list = findList(req.params.id);
   if (!list) {
-    return res.status(404).send('List not found');
+    const err = new Error('List not found');
+    err.status = 404;
+    next(err);
   }
   const cardSchema = Joi.object().keys({
     text: Joi.string().required()
   });
-  const { error } = Joi.validate(req.body, cardSchema);
-  if (error) {
-    return res.status(400).send('Bad request');
+  const { error: validationError } = Joi.validate(req.body, cardSchema);
+  if (validationError) {
+    const err = new Error('Bad request');
+    err.status = 400;
+    next(err);
   }
   const card = makeCard(req.body.text);
   list.cards.push(card);
-  return res.status(201).json(card);
+  res.status(201).json(card);
 });
 
 app.delete('/api/card/:id', (req, res) => {
@@ -247,31 +262,55 @@ app.delete('/api/card/:id', (req, res) => {
       }
     }
   }
-  return res.status(204).send();
+  res.status(204).send();
 });
 
-app.put('/api/card/:id', (req, res) => {
+app.put('/api/card/:id', (req, res, next) => {
   const cardSchema = Joi.object().keys({
     text: Joi.string().required(),
     id: Joi.string().required()
   });
-  const { error } = Joi.validate(req.body, cardSchema);
-  if (error) {
-    return res.status(400).send('Bad request');
+  const { error: validationError } = Joi.validate(req.body, cardSchema);
+  if (validationError) {
+    const err = new Error('Bad request');
+    err.status = 400;
+    return next(err);
   }
   if (req.params.id !== req.body.id) {
     const message = `Request path id (${req.params.id}) and request body id (${
       req.body.id
     }) must match`;
-    return res.status(400).send(message);
+
+    const err = new Error(message);
+    err.status = 400;
+    return next(err);
   }
   const card = getCard(req.params.id);
   if (!card) {
-    return res.status(404).send('Card not found');
+    const err = new Error('Card not found');
+    err.status = 404;
+    return next(err);
   }
-  card.text = req.params.text;
+  card.text = req.body.text;
   return res.status(204).send();
 });
+
+app.use(function(req, res, next) {
+  const err = new Error('Not Found');
+  err.status = 404;
+  return next(err);
+});
+
+// Catch-all Error handler
+// Add NODE_ENV check to prevent stacktrace leak
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  return res.json({
+    message: err.message,
+    error: app.get('env') === 'development' ? err : {}
+  });
+});
+
 
 app.listen(SERVER_PORT, () =>
   console.log(`Your app is listening on port ${SERVER_PORT}`)
