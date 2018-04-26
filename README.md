@@ -17,6 +17,11 @@ Note that this is not meant to be a robust, full-fledged Trello app backend. Its
 
 By default, this will run the server on port 8080. And it will expect clients coming from localhost:3000. If you want non-default settings, set environment variables for `CLIENT_ORIGIN` and `SERVER_PORT` before running `npm start`.
 
+
+## Seed data
+
+Whenever you start the server, a board will be pre-loaded via a data fixture, which should make your life easier as you develop a GUI client. Specifically, you can assume that the board represented in the `boards.json` file will be available each time the server starts. 
+
 ## More details on what it do
 
 This server supports basic CRUD ops for boards, lists, and cards.
