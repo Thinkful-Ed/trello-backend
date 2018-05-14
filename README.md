@@ -2,7 +2,7 @@
 
 [GitHub](https://github.com/Thinkful-Ed/trello-backend)
 
-[Postman API documentation](https://documenter.getpostman.com/collection/view/2364768-390f9312-f60a-4c8e-816e-9fac6403f33a)
+[Postman API documentation](https://documenter.getpostman.com/view/2364768/trello-ish-api/RW1YoL6C)
 
 Backend for supporting arbitrary Trello front end clients
 
