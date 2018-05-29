@@ -6,17 +6,12 @@ const cors = require('cors');
 const Joi = require('joi');
 const uuid = require('uuid');
 
-const { CLIENT_ORIGIN, SERVER_PORT } = require('./config');
+const { SERVER_PORT } = require('./config');
 const boardsFixture = require('./boards');
 
 const app = express();
 
-app.use(
-  cors({
-    origin: CLIENT_ORIGIN
-  })
-);
-
+app.use(cors());
 app.use(bodyParser.json());
 
 function makeBoard(name, lists = []) {
