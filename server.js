@@ -6,7 +6,7 @@ const cors = require('cors');
 const Joi = require('joi');
 const uuid = require('uuid');
 
-const { SERVER_PORT } = require('./config');
+const { PORT } = require('./config');
 const boardsFixture = require('./boards');
 
 const app = express();
@@ -307,6 +307,6 @@ app.use(function(err, req, res, next) {
 });
 
 
-app.listen(SERVER_PORT, () =>
-  console.log(`Your app is listening on port ${SERVER_PORT}`)
+app.listen(PORT, () =>
+  console.log(`Your app is listening on port ${PORT}`)
 );
