@@ -48,5 +48,8 @@ Here are some oddities and guidelines:
     - When you create a card, via the URL structure, you create it as a child of an existing list (i.e., POST /api/list/{{someListid}/card)
     - When you update, read, or delete a card, you do so via a direct path to the list (e.g., DELETE /api/card/{{someCardId}})
 
+There is a collection where you can import in postman and see an example for all the endpoints. Import the file  it  `docs/trelloapp.postman_collection.json` and it will look like:
+
+![](docs/postmanendpoints.png)
 
 Have fun!

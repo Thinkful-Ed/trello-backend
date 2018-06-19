@@ -1,0 +1,431 @@
+{
+	"variables": [],
+	"info": {
+		"name": "trelloapp",
+		"_postman_id": "67706f23-02ef-fcc6-1bdb-ced785331b3c",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"description": "",
+			"item": [
+				{
+					"name": "http://localhost:8080/api/login",
+					"request": {
+						"url": "http://localhost:8080/api/login",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"bobuser1\",\n  \"password\": \"baseball\"\n}"
+						},
+						"description": "The auth endpoints provide users with digitally signed JWTs. The login accepts valid user credentials and responds with a digitally signed JWT. The refresh endpoint accepts a valid JWT and responds with a new JWT."
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/api/refresh",
+					"request": {
+						"url": "http://localhost:8080/api/refresh",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImZ1bGxuYW1lIjoiQm9iIFVzZXIiLCJ1c2VybmFtZSI6ImJvYnVzZXIxIiwiY3JlYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwidXBkYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwiaWQiOiI1YjI5NmJiMjQ2MWQzYTZjZGNmMjk5NmEifSwiaWF0IjoxNTI5NDQxNTcyLCJleHAiOjE1MzAwNDYzNzJ9.qofX_vdVs00l9Rq417sCBsApWOKV1xsi5L_eEjjgmpY",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Returns a \"fresh\" JWT with a extended expires time\n\nResponse\nSuccessful credential validation responds with a 200 status and a JWT\nInvalid authorization responds with a 401 status and an error message\nMissing credentials responds with a 400 status and an error message"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Board",
+			"description": "",
+			"item": [
+				{
+					"name": "http://localhost:8080/api/board/1",
+					"request": {
+						"url": "http://localhost:8080/api/board/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImZ1bGxuYW1lIjoiQm9iIFVzZXIiLCJ1c2VybmFtZSI6ImJvYnVzZXIxIiwiY3JlYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwidXBkYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwiaWQiOiI1YjI5NmJiMjQ2MWQzYTZjZGNmMjk5NmEifSwiaWF0IjoxNTI5NDQyMTg5LCJleHAiOjE1MzAwNDY5ODl9.t2Bh5IH_cHXHYDeNSt55clVoGnroYGgHuKlNz-TykFY",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Retrieves the specified board associated to the current user and id. Responds with 200 OK status and the note as an object."
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/api/board",
+					"request": {
+						"url": "http://localhost:8080/api/board",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImZ1bGxuYW1lIjoiQm9iIFVzZXIiLCJ1c2VybmFtZSI6ImJvYnVzZXIxIiwiY3JlYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwidXBkYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwiaWQiOiI1YjI5NmJiMjQ2MWQzYTZjZGNmMjk5NmEifSwiaWF0IjoxNTI5NDQyMTg5LCJleHAiOjE1MzAwNDY5ODl9.t2Bh5IH_cHXHYDeNSt55clVoGnroYGgHuKlNz-TykFY",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Retrieves a list of boards associated to the current user which may be filtered by optional querystring parameters. Responds with 200 OK status and the list of boards as an array of objects."
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/api/board",
+					"request": {
+						"url": "http://localhost:8080/api/board",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImZ1bGxuYW1lIjoiQm9iIFVzZXIiLCJ1c2VybmFtZSI6ImJvYnVzZXIxIiwiY3JlYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwidXBkYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwiaWQiOiI1YjI5NmJiMjQ2MWQzYTZjZGNmMjk5NmEifSwiaWF0IjoxNTI5NDQyMTg5LCJleHAiOjE1MzAwNDY5ODl9.t2Bh5IH_cHXHYDeNSt55clVoGnroYGgHuKlNz-TykFY",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"name\": \"my user board\"\n}"
+						},
+						"description": "Creates a new board and associates it with the current user. Responds with 201 Created status, a location header, and the new note as a object."
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/api/board/99b63575-dc52-4474-922c-88fd5bbe3755",
+					"request": {
+						"url": "http://localhost:8080/api/board/99b63575-dc52-4474-922c-88fd5bbe3755",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImZ1bGxuYW1lIjoiQm9iIFVzZXIiLCJ1c2VybmFtZSI6ImJvYnVzZXIxIiwiY3JlYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwidXBkYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwiaWQiOiI1YjI5NmJiMjQ2MWQzYTZjZGNmMjk5NmEifSwiaWF0IjoxNTI5NDQyMTg5LCJleHAiOjE1MzAwNDY5ODl9.t2Bh5IH_cHXHYDeNSt55clVoGnroYGgHuKlNz-TykFY",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Deletes the specified board associated to the current user. Responds with 204 No Content status."
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/api/board/a9b2088b-eaf8-46bb-8fb4-e701b36402dd",
+					"request": {
+						"url": "http://localhost:8080/api/board/a9b2088b-eaf8-46bb-8fb4-e701b36402dd",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImZ1bGxuYW1lIjoiQm9iIFVzZXIiLCJ1c2VybmFtZSI6ImJvYnVzZXIxIiwiY3JlYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwidXBkYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwiaWQiOiI1YjI5NmJiMjQ2MWQzYTZjZGNmMjk5NmEifSwiaWF0IjoxNTI5NDQyMTg5LCJleHAiOjE1MzAwNDY5ODl9.t2Bh5IH_cHXHYDeNSt55clVoGnroYGgHuKlNz-TykFY",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"a9b2088b-eaf8-46bb-8fb4-e701b36402dd\",\n    \"name\": \"new board title\"\n}"
+						},
+						"description": "Updates the specified board associated to the current user. Responds with 200 OK status and the updated note as an object."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Card",
+			"description": "",
+			"item": [
+				{
+					"name": "http://localhost:8080/api/card/1",
+					"request": {
+						"url": "http://localhost:8080/api/card/457c0e79-7cdf-4f19-b76e-c7c03ee727dc",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImZ1bGxuYW1lIjoiQm9iIFVzZXIiLCJ1c2VybmFtZSI6ImJvYnVzZXIxIiwiY3JlYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwidXBkYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwiaWQiOiI1YjI5NmJiMjQ2MWQzYTZjZGNmMjk5NmEifSwiaWF0IjoxNTI5NDQyMTg5LCJleHAiOjE1MzAwNDY5ODl9.t2Bh5IH_cHXHYDeNSt55clVoGnroYGgHuKlNz-TykFY",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Get a card details by the id"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/api/list/a855a967-2dac-4bbe-b839-e2926d78db49/card",
+					"request": {
+						"url": "http://localhost:8080/api/list/a855a967-2dac-4bbe-b839-e2926d78db49/card",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImZ1bGxuYW1lIjoiQm9iIFVzZXIiLCJ1c2VybmFtZSI6ImJvYnVzZXIxIiwiY3JlYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwidXBkYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwiaWQiOiI1YjI5NmJiMjQ2MWQzYTZjZGNmMjk5NmEifSwiaWF0IjoxNTI5NDQyMTg5LCJleHAiOjE1MzAwNDY5ODl9.t2Bh5IH_cHXHYDeNSt55clVoGnroYGgHuKlNz-TykFY",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Get Cards inside a list for logged user"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/api/list/a855a967-2dac-4bbe-b839-e2926d78db49/card",
+					"request": {
+						"url": "http://localhost:8080/api/list/a855a967-2dac-4bbe-b839-e2926d78db49/card",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImZ1bGxuYW1lIjoiQm9iIFVzZXIiLCJ1c2VybmFtZSI6ImJvYnVzZXIxIiwiY3JlYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwidXBkYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwiaWQiOiI1YjI5NmJiMjQ2MWQzYTZjZGNmMjk5NmEifSwiaWF0IjoxNTI5NDQyMTg5LCJleHAiOjE1MzAwNDY5ODl9.t2Bh5IH_cHXHYDeNSt55clVoGnroYGgHuKlNz-TykFY",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"text\": \"this is my first card\"\n}"
+						},
+						"description": "Create a new card inside a list for logged user"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/api/card/18f87446-a73d-4d6f-b118-62accbb3101a",
+					"request": {
+						"url": "http://localhost:8080/api/card/18f87446-a73d-4d6f-b118-62accbb3101a",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImZ1bGxuYW1lIjoiQm9iIFVzZXIiLCJ1c2VybmFtZSI6ImJvYnVzZXIxIiwiY3JlYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwidXBkYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwiaWQiOiI1YjI5NmJiMjQ2MWQzYTZjZGNmMjk5NmEifSwiaWF0IjoxNTI5NDQyMTg5LCJleHAiOjE1MzAwNDY5ODl9.t2Bh5IH_cHXHYDeNSt55clVoGnroYGgHuKlNz-TykFY",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"text\": \"my new card title\",\n  \"id\": \"18f87446-a73d-4d6f-b118-62accbb3101a\"\n}"
+						},
+						"description": "Change a card title"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/api/card/77d0355d-330d-4dca-8c28-9c935b96bf16",
+					"request": {
+						"url": "http://localhost:8080/api/card/77d0355d-330d-4dca-8c28-9c935b96bf16",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImZ1bGxuYW1lIjoiQm9iIFVzZXIiLCJ1c2VybmFtZSI6ImJvYnVzZXIxIiwiY3JlYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwidXBkYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwiaWQiOiI1YjI5NmJiMjQ2MWQzYTZjZGNmMjk5NmEifSwiaWF0IjoxNTI5NDQyMTg5LCJleHAiOjE1MzAwNDY5ODl9.t2Bh5IH_cHXHYDeNSt55clVoGnroYGgHuKlNz-TykFY",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Delete a card for a specific user"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "List",
+			"description": "",
+			"item": [
+				{
+					"name": " http://localhost:8080/api/board/1/list",
+					"request": {
+						"url": " http://localhost:8080/api/board/f00041d6-0a7c-4de6-9f44-ac706fce8057/list",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImZ1bGxuYW1lIjoiQm9iIFVzZXIiLCJ1c2VybmFtZSI6ImJvYnVzZXIxIiwiY3JlYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwidXBkYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwiaWQiOiI1YjI5NmJiMjQ2MWQzYTZjZGNmMjk5NmEifSwiaWF0IjoxNTI5NDQyMTg5LCJleHAiOjE1MzAwNDY5ODl9.t2Bh5IH_cHXHYDeNSt55clVoGnroYGgHuKlNz-TykFY",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Get lists from a board"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/api/board/5a05362a-1206-47b8-a665-3b897ce28622/list",
+					"request": {
+						"url": "http://localhost:8080/api/board/f00041d6-0a7c-4de6-9f44-ac706fce8057/list",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImZ1bGxuYW1lIjoiQm9iIFVzZXIiLCJ1c2VybmFtZSI6ImJvYnVzZXIxIiwiY3JlYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwidXBkYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwiaWQiOiI1YjI5NmJiMjQ2MWQzYTZjZGNmMjk5NmEifSwiaWF0IjoxNTI5NDQyMTg5LCJleHAiOjE1MzAwNDY5ODl9.t2Bh5IH_cHXHYDeNSt55clVoGnroYGgHuKlNz-TykFY",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"my new list\"\n}"
+						},
+						"description": "Create a list inside a board for a user"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/api/board/5a05362a-1206-47b8-a665-3b897ce28622/list",
+					"request": {
+						"url": "http://localhost:8080/api/board/f00041d6-0a7c-4de6-9f44-ac706fce8057/list",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImZ1bGxuYW1lIjoiQm9iIFVzZXIiLCJ1c2VybmFtZSI6ImJvYnVzZXIxIiwiY3JlYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwidXBkYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwiaWQiOiI1YjI5NmJiMjQ2MWQzYTZjZGNmMjk5NmEifSwiaWF0IjoxNTI5NDQyMTg5LCJleHAiOjE1MzAwNDY5ODl9.t2Bh5IH_cHXHYDeNSt55clVoGnroYGgHuKlNz-TykFY",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Get list for a specific board by id and logged user"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/api/list/5441ed5a-f0e5-470f-ae05-35562f12105d",
+					"request": {
+						"url": "http://localhost:8080/api/list/5441ed5a-f0e5-470f-ae05-35562f12105d",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImZ1bGxuYW1lIjoiQm9iIFVzZXIiLCJ1c2VybmFtZSI6ImJvYnVzZXIxIiwiY3JlYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwidXBkYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwiaWQiOiI1YjI5NmJiMjQ2MWQzYTZjZGNmMjk5NmEifSwiaWF0IjoxNTI5NDQyMTg5LCJleHAiOjE1MzAwNDY5ODl9.t2Bh5IH_cHXHYDeNSt55clVoGnroYGgHuKlNz-TykFY",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"5441ed5a-f0e5-470f-ae05-35562f12105d\",\n    \"title\": \"new list title\"\n}"
+						},
+						"description": "Change a title for a list for logged user"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/api/list/5441ed5a-f0e5-470f-ae05-35562f12105d",
+					"request": {
+						"url": "http://localhost:8080/api/list/5441ed5a-f0e5-470f-ae05-35562f12105d",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImZ1bGxuYW1lIjoiQm9iIFVzZXIiLCJ1c2VybmFtZSI6ImJvYnVzZXIxIiwiY3JlYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwidXBkYXRlZEF0IjoiMjAxOC0wNi0xOVQyMDo0Njo0Mi4wMDJaIiwiaWQiOiI1YjI5NmJiMjQ2MWQzYTZjZGNmMjk5NmEifSwiaWF0IjoxNTI5NDQyMTg5LCJleHAiOjE1MzAwNDY5ODl9.t2Bh5IH_cHXHYDeNSt55clVoGnroYGgHuKlNz-TykFY",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Delete a lost inside a board for logged user"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"description": "",
+			"item": [
+				{
+					"name": "http://localhost:8080/api/users/",
+					"request": {
+						"url": "http://localhost:8080/api/users/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"fullname\": \"Bob User\", \n\t\"username\": \"bobuser1\",\n\t\"password\": \"baseball\"\n}"
+						},
+						"description": "The users endpoints provide CRUD operations on the resource.\n\nThe POST endpoint provides the registration or signup functionality, it is not protected. The GET, PUT and DELETE endpoints allow a user to manage their account, they require JWT Bearer token authorization."
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
